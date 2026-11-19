@@ -1,10 +1,8 @@
 from pyscript import document
 import random
 
-# Creator profile data stored in a structured dictionary
 creator_info = {
     "name": "Jose Mateo Madrid Salacup",
-    "tagline": "Grade 10 Student | Aspiring Pediatrician | Music & Literature Enthusiast",
     "bio": (
         "Hi! I'm Jose Mateo, a Grade 10 student from OB Montessori Center - Fairview. "
         "My biggest dream is to pursue a career in medicine as a pediatrician—researching childhood "
@@ -14,7 +12,7 @@ creator_info = {
     ),
     "interests": [
         "Pediatrics & Medical Science",
-        "Pop Music, EDM, Rap, Hip-Hip, & R&B",
+        "Pop Music, EDM, Rap, Hip-Hop, & R&B",
         "True Crime Documentaries",
         "Fashion & Purse Collecting",
         "LGBTQ+ & Women's Rights Advocacy"
@@ -33,25 +31,19 @@ fun_facts = [
 
 last_fact = ""
 
-def load_profile():
-    document.getElementById("creator-name").innerText = creator_info["name"]
-    document.getElementById("creator-tagline").innerText = creator_info["tagline"]
-    document.getElementById("creator-bio").innerText = creator_info["bio"]
-    document.getElementById("creator-quote").innerText = creator_info["quote"]
-    document.getElementById("quote-author").innerText = creator_info["quote_author"]
+interests_list = ", ".join(creator_info["interests"])
 
-    interests_div = document.getElementById("interests-container")
-    badges_html = "".join(
-        f'<span class="badge-interest">{item}</span>' for item in creator_info["interests"]
-    )
-    interests_div.innerHTML = badges_html
+info_html = f"""
+<p><strong>Name:</strong> {creator_info["name"]}</p>
+<p><strong>About Me:</strong> {creator_info["bio"]}</p>
+<p><strong>Interests:</strong> {interests_list}</p>
+<p><strong>Favorite Quote:</strong> <em>{creator_info["quote"]}</em> {creator_info["quote_author"]}</p>
+"""
+document.getElementById("profile-output").innerHTML = info_html
 
 def show_fun_fact(event):
     global last_fact
-    available_facts = [fact for fact in fun_facts if fact != last_fact]
+    available_facts = [f for f in fun_facts if f != last_fact]
     chosen_fact = random.choice(available_facts)
     last_fact = chosen_fact
-    document.getElementById("fun-fact-output").innerText = f"✨ {chosen_fact}"
-
-# Run initialization when PyScript loads
-load_profile()
+    document.getElementById("fact-output").innerText = chosen_fact
